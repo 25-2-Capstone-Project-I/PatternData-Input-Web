@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -15,7 +12,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
 
 
 @api_view(['GET'])
-def check_name(request):
-    name = request.query_params.get('name', '')
-    exists = Product.objects.filter(name=name).exists()
+def check_nickname(request):
+    nickname = request.query_params.get('nickname', '')
+    exists = Product.objects.filter(nickname=nickname).exists()
     return Response({'exists': exists})

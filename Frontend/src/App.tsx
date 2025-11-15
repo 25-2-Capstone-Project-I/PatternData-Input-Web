@@ -4,8 +4,9 @@ import InfoFormPage from './pages/InfoFormPage.tsx'
 import BarcodePage from './pages/BarcodePage.tsx'
 
 export type ProductFormData = {
-  name: string
-  date: string       // "YYYY-MM-DD"
+  itemName: string
+  nickname: string
+  date: string        // "YYYY-MM-DD"
   category: string
   description: string
 }
