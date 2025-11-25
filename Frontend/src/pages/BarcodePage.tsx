@@ -7,11 +7,13 @@ import Webcam from 'react-webcam'
 type Props = {
   infoData: ProductFormData | null
 }
+const API_BASE = 'http://127.0.0.1:8000'
 
 const videoConstraints = {
   facingMode: 'environment', // 후면 카메라 우선 (노트북이면 그냥 웹캠)
 }
 
+// dataURL → Blob 변환 (이미지 파일로 보내기 위해)
 const dataUrlToBlob = (dataUrl: string): Blob => {
   const arr = dataUrl.split(',')
   const mimeMatch = arr[0].match(/:(.*?);/)
@@ -50,7 +52,7 @@ function BarcodePage({ infoData }: Props) {
   }
 
   // dataURL(캡처 이미지)에서 "가운데 영역" 색 추출
-  const extractDominantColorFromDataUrl = (dataUrl: string): Promise<string> => {
+  const extractCenterColorFromDataUrl = (dataUrl: string): Promise<string> => {
     return new Promise((resolve, reject) => {
       const img = new Image()
       img.crossOrigin = 'anonymous'
@@ -71,7 +73,7 @@ function BarcodePage({ infoData }: Props) {
         // 이미지 리사이즈해서 그리기
         ctx.drawImage(img, 0, 0, width, height)
 
-        // 중앙 영역(예: 40x40)의 색만 평균내기
+        // 중앙 영역(40x40)의 색만 평균내기
         const regionSize = 40
         const startX = Math.floor(width / 2 - regionSize / 2)
         const startY = Math.floor(height / 2 - regionSize / 2)
@@ -117,6 +119,11 @@ function BarcodePage({ infoData }: Props) {
     })
   }
 
+  type ErrorResponse = {
+    nickname?: string
+    [key: string]: unknown
+  }
+
   const handleCaptureColor = async () => {
     if (!webcamRef.current) return
     const shot = webcamRef.current.getScreenshot()
@@ -129,7 +136,7 @@ function BarcodePage({ infoData }: Props) {
     setError(null)
 
     try {
-      const color = await extractDominantColorFromDataUrl(shot)
+      const color = await extractCenterColorFromDataUrl(shot)
       setDominantColor(color)
       setPalette([color])  // 대표색만 팔레트에 넣음
     } catch (err) {
@@ -155,9 +162,8 @@ function BarcodePage({ infoData }: Props) {
       const formData = new FormData()
       formData.append('item_name', infoData.itemName)
       formData.append('nickname', infoData.nickname)
-      formData.append('date', infoData.date)
-      formData.append('category', infoData.category)
-      formData.append('description', infoData.description)
+      formData.append('met_date', infoData.metDate)
+      formData.append('farewell_date', infoData.farewellDate)
       formData.append('barcode', barcode)
 
       if (dominantColor) {
@@ -173,18 +179,16 @@ function BarcodePage({ infoData }: Props) {
         formData.append('image', blob, 'capture.png')
       }
 
-      const res = await fetch('http://127.0.0.1:8000/api/products/', {
+      const res = await fetch(`${API_BASE}/api/products/`, {
         method: 'POST',
-        // headers에 'Content-Type' 넣지 마세요! (FormData면 브라우저가 자동 설정)
         body: formData,
       })
 
-      const data = await res.json()
+      const data: ErrorResponse = await res.json()
 
       if (!res.ok) {
         console.error(data)
-        const errorData = data as { nickname?: string }
-        if (errorData.nickname) {
+        if (data.nickname) {
           setError('이미 사용 중인 닉네임입니다. 처음 단계에서 다시 시도해 주세요.')
         } else {
           setError('저장에 실패했습니다.')
@@ -225,7 +229,7 @@ function BarcodePage({ infoData }: Props) {
       >
         <h1 style={{ marginBottom: 16 }}>바코드를 입력해 주세요</h1>
         <p style={{ marginBottom: 24, opacity: 0.8 }}>
-          마지막 단계입니다. 바코드와 색 정보를 함께 저장할 수 있습니다.
+          마지막 단계입니다. 바코드와 사진, 색 정보를 함께 저장할 수 있습니다.
         </p>
 
         {/* 바코드 입력 */}
@@ -291,7 +295,7 @@ function BarcodePage({ infoData }: Props) {
             </div>
           )}
 
-          {/* 캡처 이미지 썸네일 (선택) */}
+          {/* 캡처 이미지 썸네일 */}
           {screenshot && (
             <div style={{ marginTop: 8 }}>
               <img
