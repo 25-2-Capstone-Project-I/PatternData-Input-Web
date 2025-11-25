@@ -5,6 +5,7 @@ class Product(models.Model):
     nickname = models.CharField(max_length=50, unique=True)  # 닉네임 (중복 불가)
     met_date = models.DateField()                             # 물건과 만난 날짜
     farewell_date = models.DateField()                        # 물건과 헤어지는 날짜
+    barcode = models.CharField(max_length = 13)
     
     # 색 추출 기능
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)  # 물건 이미지: 웹캠 캡처 or 파일 업로드 모두 여기로 저장
