@@ -79,7 +79,7 @@ function ArchivePage() {
         >
           {filtered.map(product => {
             const imageUrl = product.image
-              ? `${API_BASE}${product.image}`
+              ? `${product.image}`
               : null
 
             return (
