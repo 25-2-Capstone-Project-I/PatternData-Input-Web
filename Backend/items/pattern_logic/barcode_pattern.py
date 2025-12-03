@@ -29,54 +29,62 @@ def setup_logging():
     return logging.getLogger(__name__)
 
 class BarcodePatternGenerator:
-    def __init__(self, pattern_dir=None):
+    def __init__(self, pattern_dir=None, output_dir=None):
         """
         바코드 패턴 생성기 초기화
         
         Args:
             pattern_dir: 패턴 이미지 파일들이 있는 디렉토리 경로
+            output_dir: 생성된 패턴 이미지가 저장될 출력 디렉토리 경로
         """
         self.logger = setup_logging()
         project_root = os.path.dirname(os.path.abspath(__file__))
+
+        # 패턴 디렉토리 자동 탐색
         if pattern_dir is None:
             candidate_dirs = [
-                os.path.join(project_root, "mnt:project"),
+                os.path.join(project_root, "mnt_project"),
                 os.path.join(project_root, "patterns"),
                 "/mnt/project",
             ]
             pattern_dir = next((d for d in candidate_dirs if os.path.isdir(d)), None)
-        
+
         if not pattern_dir or not os.path.isdir(pattern_dir):
             raise FileNotFoundError(
                 "패턴 디렉터리를 찾을 수 없습니다. --pattern-dir 경로를 확인하세요."
             )
-        
+
         self.pattern_dir = pattern_dir
         self.patterns = {}
         self.load_patterns()
-        
-        # 출력 디렉토리 생성
-        self.output_dir = "pattern_outputs"
+
+        # 출력 디렉토리 설정
+        # Django에서 output_dir을 전달하면 그걸 사용, 아니면 기본값("pattern_outputs") 사용
+        if output_dir is None:
+            output_dir = os.path.join(project_root, "pattern_outputs")
+
+        self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        
-        # 색상 팔레트 정의 (0-9: 컬러)
+
+        # 색상 팔레트
         self.colors = [
-            (255, 0, 0),      # 0: 빨간색
-            (255, 165, 0),    # 1: 주황색
-            (255, 255, 0),    # 2: 노란색
-            (0, 255, 0),      # 3: 초록색
-            (0, 0, 255),      # 4: 파란색
-            (75, 0, 130),     # 5: 남색
-            (148, 0, 211),    # 6: 보라색
-            (255, 192, 203),  # 7: 핑크색
-            (165, 42, 42),    # 8: 갈색
-            (128, 128, 128),  # 9: 회색
+            (255, 0, 0),      
+            (255, 165, 0),   
+            (255, 255, 0),    
+            (0, 255, 0),      
+            (0, 0, 255),      
+            (75, 0, 130),     
+            (148, 0, 211),    
+            (255, 192, 203),  
+            (165, 42, 42),    
+            (128, 128, 128),  
         ]
-        
+
         self.color_names = [
             "빨간색", "주황색", "노란색", "초록색", "파란색",
             "남색", "보라색", "핑크색", "갈색", "회색"
         ]
+
     
     def load_patterns(self):
         """패턴 이미지 파일들을 메모리에 로드"""
