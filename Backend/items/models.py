@@ -12,6 +12,9 @@ class Product(models.Model):
     dominant_color = models.CharField(max_length=7, blank=True, null=True)  # "#rrggbb"
     palette = models.JSONField(blank=True, null=True)  # ["#rrggbb", "#ddeeff", ...] 형식
     
+    # 패턴 이미지
+    pattern_image = models.ImageField(upload_to='pattern_outputs/', blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
