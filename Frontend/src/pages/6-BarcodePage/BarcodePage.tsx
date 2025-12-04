@@ -8,7 +8,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { FormEvent } from 'react'
-import type { ProductFormData, FormPageProps } from '../App'
+import type { ProductFormData, FormPageProps } from '../../App'
 
 const API_BASE = 'http://127.0.0.1:8000'
 

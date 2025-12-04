@@ -5,14 +5,14 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import WaitPage from './pages/WaitPage'
-import NicknamePage from './pages/NicknamePage'
-import MetDatePage from './pages/MetDatePage'
-import FarewellDatePage from './pages/FarewellDatePage'
-import PhotoPage from './pages/PhotoPage'
-import BarcodePage from './pages/BarcodePage'
-import EndPage from './pages/EndPage'
-import ArchivePage from './pages/ArchivePage'
+import WaitPage from './pages/1-WaitPage/WaitPage.tsx'
+import NicknamePage from './pages/2-NicknamePage/NicknamePage'
+import MetDatePage from './pages/3-MetDatePage/MetDatePage'
+import FarewellDatePage from './pages/4-FarewellDatePage/FarewellDatePage'
+import PhotoPage from './pages/5-PhotoPage/PhotoPage'
+import BarcodePage from './pages/6-BarcodePage/BarcodePage.tsx'
+import EndPage from './pages/7-EndPage/EndPage.tsx'
+import ArchivePage from './pages/9-ArchivePage/ArchivePage.tsx'
 
 // 사용자가 입력/촬영한 데이터를 모아두는 타입
 export type ProductFormData = {
