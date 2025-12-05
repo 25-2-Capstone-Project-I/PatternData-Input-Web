@@ -87,7 +87,15 @@ function App() {
       {/* 종료 화면: 생성된 패턴 이미지 보여주기 */}
       <Route
         path="/end"
-        element={<EndPage patternImageUrl={patternImageUrl} />}
+        element={
+          <EndPage
+            patternImageUrl={patternImageUrl}
+            nickname={formData.nickname}
+            metDate={formData.metDate}
+            farewellDate={formData.farewellDate}
+            objectImageUrl={formData.screenshot} // 촬영한 물건 사진
+          />
+        }
       />
 
       {/* 아카이빙 페이지: 저장된 모든 Product 조회 */}

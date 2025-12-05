@@ -7,7 +7,7 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Webcam from 'react-webcam'
-import type { FormPageProps } from '../App'
+import type { FormPageProps } from '../../App'
 
 const videoConstraints = {
   facingMode: 'environment', // 후면 카메라 우선
