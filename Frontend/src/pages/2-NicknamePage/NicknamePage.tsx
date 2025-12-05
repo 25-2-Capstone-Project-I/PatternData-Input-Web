@@ -6,7 +6,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { FormEvent } from 'react'
-import type { FormPageProps } from '../App'
+import type { FormPageProps } from '../../App'
 
 // 백엔드 기본 URL (필요에 따라 수정 가능)
 const API_BASE = 'http://127.0.0.1:8000'
