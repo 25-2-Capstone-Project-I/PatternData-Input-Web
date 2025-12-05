@@ -302,7 +302,7 @@
 
 .qr-title {
   font-size: 60px;
-  font-weight: 600;
+    font-weight: 600;
   margin: 0 0 96px;
   color: #413932;
   white-space: nowrap;
@@ -329,12 +329,12 @@
   height: 300px;
   border-radius: 0;
   background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #007aff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #007aff;
   font-size: 22.5px;
-  font-weight: 600;
+    font-weight: 600;
   margin: 0;
   font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
   white-space: nowrap;
@@ -345,16 +345,16 @@
   top: 900px;
   left: 294px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
   width: 534px;
   height: 84px;
   padding: 0;
-  border-radius: 18px;
+    border-radius: 18px;
   font-size: 36px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
   transition: background-color 0.3s ease;
   background: rgba(65, 57, 50, 0.8);
   color: #f8f8f8;

@@ -1,0 +1,133 @@
+.date-picker {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.date-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.date-picker-nav {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #413932;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.date-picker-nav:hover {
+  background-color: rgba(65, 57, 50, 0.1);
+}
+
+.date-picker-month {
+  font-size: 24px;
+  font-weight: 600;
+  color: #413932;
+  font-family: 'Pretendard', system-ui, sans-serif;
+}
+
+.date-picker-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.date-picker-weekday {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(65, 57, 50, 0.6);
+  font-family: 'Pretendard', system-ui, sans-serif;
+  padding: 8px 0;
+}
+
+.date-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.date-picker-day-empty {
+  aspect-ratio: 1;
+}
+
+.date-picker-day {
+  aspect-ratio: 1;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #413932;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.date-picker-day:hover:not(.date-picker-day--disabled) {
+  background-color: rgba(65, 57, 50, 0.1);
+}
+
+.date-picker-day--today {
+  color: rgba(91, 70, 54, 0.8);
+  font-weight: 600;
+  background-color: rgba(91, 70, 54, 0.1);
+}
+
+.date-picker-day--selected {
+  background-color: rgba(65, 57, 50, 0.15);
+  font-weight: 600;
+  position: relative;
+}
+
+.date-picker-day--selected::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #413932;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* 오늘 날짜이면서 선택된 경우 */
+.date-picker-day--today.date-picker-day--selected {
+  background-color: rgba(65, 57, 50, 0.2);
+}
+
+.date-picker-day--disabled {
+  color: rgba(65, 57, 50, 0.3);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .date-picker {
+    padding: 16px;
+  }
+
+  .date-picker-month {
+    font-size: 20px;
+  }
+
+  .date-picker-day {
+    font-size: 14px;
+  }
+}
+
