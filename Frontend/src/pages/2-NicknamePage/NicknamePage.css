@@ -1,0 +1,141 @@
+/* NicknamePage 전용 스타일 */
+/* 레이아웃 관련 스타일은 FormPageLayout 컴포넌트로 이동됨 */
+
+.greeting {
+  width: 209px;
+  color: #413932;
+  font-size: 45px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 700;
+  margin: 0 0 62px 0;
+  line-height: normal;
+}
+
+.question {
+  width: 689px;
+  color: #413932;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 45px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  margin: 0 0 18px 0;
+  line-height: normal;
+}
+
+.instruction {
+    width: 453px;
+
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin: 0 0 62px 0;
+  line-height: normal;
+}
+
+.nickname-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nickname-label {
+    width: 52px;
+
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: normal;
+}
+
+.nickname-input {
+  width: 743px;
+  height: 48px;
+  background: white;
+  border-radius: 18px;
+  border: none; 
+  outline: none;
+  padding: 18px 26px;
+  color: #5b4636;
+  font-size: 40px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 400;
+  margin-bottom: 16px;
+  transition: outline 0.2s ease;
+}
+
+.nickname-input:focus {
+  outline: 2px solid #413932;
+  outline-offset: -2px;
+}
+
+.nickname-input--error {
+  outline: 2px solid #d54737;
+  outline-offset: -2px;
+}
+
+.nickname-input::placeholder {
+  color: #dcd7c9;
+  opacity: 0.6;
+}
+
+.error-message {
+    height: 40px;
+    width: 453px;
+    color: #d54737;
+    font-size: 30px;
+    font-family: 'Pretendard', system-ui, sans-serif;
+    font-weight: 500;
+    margin: 0 0 0px 0;
+    line-height: normal;
+}
+
+/* FormButton 스타일은 FormButton 컴포넌트로 이동됨 */
+
+/* PreviewCard 스타일은 PreviewCard 컴포넌트로 이동됨 */
+
+/* 반응형 (전시용 FHD가 기본이지만 최소 모바일 대응) */
+@media (max-width: 1024px) {
+  .nickname-input {
+    width: 100%;
+    max-width: 795px;
+  }
+}
+
+@media (max-width: 768px) {
+  .greeting,
+  .question {
+    font-size: 32px;
+  }
+
+  .instruction {
+    font-size: 20px;
+  }
+
+  .nickname-label {
+    font-size: 24px;
+  }
+
+  .nickname-input {
+    font-size: 28px;
+    height: 64px;
+  }
+
+  .submit-button {
+    font-size: 28px;
+    height: 64px;
+  }
+
+  .error-message {
+    font-size: 20px;
+  }
+
+  .preview-nickname {
+    font-size: 32px;
+  }
+}
+
