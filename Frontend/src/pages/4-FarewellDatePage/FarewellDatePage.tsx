@@ -2,13 +2,23 @@
 // - 기본값: 오늘 날짜
 // - date 입력 후 /photo 로 이동
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { FormPageProps } from '../App'
 
 function FarewellDatePage({ formData, setFormData }: FormPageProps) {
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>(null)
+
+  // 페이지 진입 시 farewellDate가 비어있으면 오늘 날짜로 초기화
+  useEffect(() => {
+    if (!formData.farewellDate) {
+      setFormData((prev) => ({
+        ...prev,
+        farewellDate: new Date().toISOString().slice(0, 10),
+      }))
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleNext = () => {
     if (!formData.farewellDate) {

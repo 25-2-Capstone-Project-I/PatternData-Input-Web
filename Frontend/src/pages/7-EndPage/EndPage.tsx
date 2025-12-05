@@ -23,7 +23,7 @@ type Props = {
 type Step = 'video' | 'card' | 'qr'
 
 const VIDEO_DURATION_MS = 8000
-const AUTO_RESET_DELAY_MS = 4000000000000
+const AUTO_RESET_DELAY_MS = 40000  // 40초
 
 function EndPage({
   patternImageUrl,
@@ -62,7 +62,7 @@ function EndPage({
   }
 
   const handleCardClick = () => {
-    // 카드 화면에서 카드를 누르면 QR 화면으로 이동
+    // 카드 화면에서 카드를 누르면 QR 화면으로 이동 (카드가 오른쪽으로 이동)
     if (step === 'card') {
       setStep('qr')
       setIsFlipped(false)
@@ -121,11 +121,11 @@ function EndPage({
       {/* Scene 2: 카드 확인해보세요 */}
       {step === 'card' && (
         <div className="end-scene end-scene-card">
-          <div className="end-logo end-logo--top">
+          <header className="end-logo end-logo--top">
             <span>woven</span>
             <br />
             <span>memory</span>
-          </div>
+          </header>
 
           <h1 className="end-title">카드를 확인해보세요</h1>
 
@@ -165,11 +165,11 @@ function EndPage({
       {/* Scene 3: QR + 카드 + 처음으로 돌아가기 */}
       {step === 'qr' && (
         <div className="end-scene end-scene-qr">
-          <div className="end-logo end-logo--top">
+          <header className="end-logo end-logo--top">
             <span>woven</span>
             <br />
             <span>memory</span>
-          </div>
+          </header>
 
           <div className="end-qr-layout">
             {/* 왼쪽 텍스트 + QR 자리 */}

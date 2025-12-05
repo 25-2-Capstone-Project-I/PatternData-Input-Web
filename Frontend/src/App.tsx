@@ -36,7 +36,7 @@ function App() {
   const [formData, setFormData] = useState<ProductFormData>({
     nickname: '',
     metDate: '',
-    farewellDate: new Date().toISOString().slice(0, 10), // 기본값: 오늘
+    farewellDate: '', // FarewellDatePage에서 오늘 날짜로 초기화
   })
 
   // Django에서 패턴 생성 후 돌려준 이미지 URL

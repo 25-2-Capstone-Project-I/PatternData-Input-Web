@@ -1,0 +1,52 @@
+.form-button {
+  width: 795px;
+  height: 84px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  font-size: 37.5px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  margin-top: 100px;
+}
+
+.form-button--disabled {
+  background: rgba(65, 57, 50, 0.3);
+  color: #f9f9f9;
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.form-button--enabled {
+  background: rgba(65, 57, 50, 0.85);
+  color: #f9f9f9;
+  opacity: 1;
+}
+
+.form-button--enabled:hover {
+  background: rgba(65, 57, 50, 0.95);
+}
+
+.form-button--enabled:active {
+  background: rgba(65, 57, 50, 1);
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .form-button {
+    width: 100%;
+    max-width: 795px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-button {
+    font-size: 28px;
+    height: 64px;
+  }
+}
+
