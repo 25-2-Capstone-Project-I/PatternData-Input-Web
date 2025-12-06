@@ -1,0 +1,441 @@
+.end-page-root {
+  width: 100%;
+  height: 100vh;
+  background-color: #f9f9f9;
+  color: #413932;
+  font-family: 'Pretendard', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 공통 씬 래퍼 */
+.end-scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ========== Scene 1 : Video ========== */
+
+.end-scene-video {
+  background-color: #000;
+}
+
+.end-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.end-video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: rgba(249, 249, 249, 0.15);
+  text-align: center;
+}
+
+.end-logo {
+  font-size: 60px;
+  line-height: 1.2;
+  font-family: 'Bristol', 'Pretendard', system-ui, sans-serif;
+  color: #5b4636;
+  text-align: center;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+
+/* 상단용 로고 (Scene2/3) */
+.end-logo--top {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.video-message {
+  font-size: 52px;
+  font-weight: 600;
+  color: #413932;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+.message-1 {
+  animation-delay: 0s;
+}
+
+.message-2 {
+  animation-delay: 3s;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* ========== Scene 2 : Card ========== */
+
+.end-scene-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  padding-top: 71.1px;
+}
+
+.end-title {
+  margin-top: 95px;
+  margin-bottom: 72px;
+  font-size: 68px;
+  font-weight: 600;
+  text-align: center;
+  color: #413932;
+  white-space: nowrap;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.memory-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1600px;
+}
+
+.memory-card-wrapper--center {
+  margin-top: 0;
+}
+
+/* ========== Card 공통 ========== */
+
+.memory-card {
+  width: 450px;
+  height: 612px;
+  background: #fffefd;
+  box-shadow: 0px 2.4px 24px rgba(91, 70, 54, 0.1);
+  border-radius: 38px;
+  position: relative;
+}
+
+/* 장면2: 등장 애니메이션 전용 카드 */
+.memory-card--enter {
+  opacity: 0;
+  animation: cardEnter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes cardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(120px) rotateY(-720deg) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateY(0deg) scale(1);
+  }
+}
+
+/* 장면3: 플립 가능한 카드 기본 설정 */
+.memory-card--flip-base {
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+.memory-card-face {
+  position: absolute;
+  inset: 0;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+}
+
+.memory-card-front {
+  background: #fffefd;
+}
+
+.memory-card-back {
+  background: #fffefd;
+  transform: rotateY(180deg);
+}
+
+.memory-card--flipped {
+  transform: rotateY(180deg);
+}
+
+/* 카드 내부 요소 */
+
+.memory-card-header {
+  position: absolute;
+  top: 36px;
+  left: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.from-label {
+  font-size: 24px;
+  font-weight: 600;
+  color: #e4e1de;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.from-name {
+  margin-top: 37px;
+  font-size: 36px;
+  font-weight: 600;
+  color: rgba(64, 56, 50, 0.7);
+  white-space: nowrap;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.memory-card-image-frame {
+  position: absolute;
+  top: 132px;
+  left: 36px;
+  width: 378px;
+  height: 378px;
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.memory-card-image {
+  width: 378px;
+  height: 378px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.memory-card-image.placeholder-pattern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-conic-gradient(
+      from 45deg,
+      #f0f0f0 0deg 15deg,
+      #e0e0e0 15deg 30deg
+    );
+  font-size: 20px;
+  font-weight: 600;
+  color: #413932;
+}
+
+.memory-card-footer {
+  position: absolute;
+  bottom: 78px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.date-range {
+  font-size: 24px;
+  font-weight: 600;
+  opacity: 0.7;
+  color: #413932;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+/* ========== Scene 3 : QR + Card ========== */
+
+.end-scene-qr {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  padding-top: 55px;
+}
+
+.end-qr-layout {
+  position: relative;
+  margin-top: 155px;
+  margin-left: 96px;
+  margin-right: 96px;
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.end-qr-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.qr-title {
+  font-size: 60px;
+    font-weight: 600;
+  margin: 0 0 96px;
+  color: #413932;
+  white-space: nowrap;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.qr-description {
+  font-size: 45px;
+  font-weight: 600;
+  margin: 0 0 0;
+  color: #413932;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.qr-box {
+  position: absolute;
+  top: 268px;
+  left: 315px;
+  width: 300px;
+  height: 300px;
+  border-radius: 0;
+  background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #007aff;
+  font-size: 22.5px;
+    font-weight: 600;
+  margin: 0;
+  font-family: 'Pretendard-SemiBold', 'Pretendard', Helvetica, sans-serif;
+  white-space: nowrap;
+}
+
+.restart-button {
+  position: absolute;
+  top: 900px;
+  left: 294px;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  width: 534px;
+  height: 84px;
+  padding: 0;
+    border-radius: 18px;
+  font-size: 36px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+  transition: background-color 0.3s ease;
+  background: rgba(65, 57, 50, 0.8);
+  color: #f8f8f8;
+  font-family: 'Pretendard-Medium', 'Pretendard', Helvetica, sans-serif;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.restart-button:hover {
+  background: rgba(65, 57, 50, 0.9);
+}
+
+.restart-button:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.restart-button:active {
+  background: rgba(65, 57, 50, 1);
+}
+
+/* 우측 카드 위치 */
+.memory-card-wrapper--right {
+  position: absolute;
+  top: 304px;
+  right: 150px;
+  margin: 0;
+}
+
+/* 반응형 (전시용 FHD가 기본이지만 최소 모바일 대응) */
+@media (max-width: 1024px) {
+  .end-scene-qr {
+    padding: 96px 24px 40px;
+  }
+
+  .end-qr-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .end-qr-left {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .qr-box {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .memory-card-wrapper--right {
+    margin-left: 0;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .end-title {
+    font-size: 36px;
+    margin-top: 120px;
+  }
+
+  .video-message {
+    font-size: 32px;
+  }
+
+  .qr-title {
+    font-size: 32px;
+  }
+
+  .qr-description {
+    font-size: 22px;
+  }
+
+  .memory-card {
+    width: 320px;
+    height: 480px;
+    border-radius: 28px;
+  }
+
+  .memory-card-image {
+    height: 260px;
+  }
+}

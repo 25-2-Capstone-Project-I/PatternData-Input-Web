@@ -11,7 +11,8 @@ import MetDatePage from './pages/3-MetDatePage/MetDatePage'
 import FarewellDatePage from './pages/4-FarewellDatePage/FarewellDatePage'
 import PhotoPage from './pages/5-PhotoPage/PhotoPage'
 import BarcodePage from './pages/6-BarcodePage/BarcodePage.tsx'
-import EndPage from './pages/7-EndPage/EndPage.tsx'
+import VideoPage from './pages/7-VideoPage/VideoPage.tsx'
+import EndPage from './pages/8-EndPage/EndPage.tsx'
 import ArchivePage from './pages/9-ArchivePage/ArchivePage.tsx'
 
 // 사용자가 입력/촬영한 데이터를 모아두는 타입
@@ -80,6 +81,17 @@ function App() {
             setFormData={setFormData}
             patternImageUrl={patternImageUrl}
             setPatternImageUrl={setPatternImageUrl}
+          />
+        }
+      />
+
+      {/* 영상 페이지: 패턴 생성 대기 중 계절 영상 재생 */}
+      <Route
+        path="/video"
+        element={
+          <VideoPage
+            metDate={formData.metDate}
+            farewellDate={formData.farewellDate}
           />
         }
       />
