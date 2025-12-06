@@ -1,0 +1,155 @@
+/* FarewellDatePage 전용 스타일 */
+
+.farewell-date-title {
+  width: 689px;
+  color: #413932;
+  font-size: 45px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  margin: 0 0 18px 0;
+  line-height: normal;
+}
+
+.farewell-date-description {
+  width: 700px;
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin: 0 0 62px 0;
+  line-height: normal;
+}
+
+.farewell-date-form {
+  width: 795px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.farewell-date-label {
+  width: 248px;
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: normal;
+}
+
+.date-input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.farewell-date-input {
+  width: 743px;
+  height: 48px;
+  background: white;
+  border-radius: 18px;
+  border: none;
+  outline: none;
+  padding: 18px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: outline 0.2s ease;
+}
+
+.farewell-date-input:focus {
+  outline: 2px solid #413932;
+  outline-offset: -2px;
+}
+
+.farewell-date-input--error {
+  outline: 2px solid #d54737;
+  outline-offset: -2px;
+}
+
+.farewell-date-input-text {
+  color: #413932;
+  font-size: 40px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 400;
+  flex: 1;
+}
+
+.farewell-date-input-text--placeholder {
+  color: #dcd7c9;
+}
+
+.farewell-date-input-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.date-picker-wrapper {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 1000;
+}
+
+.error-message {
+  height: 40px;
+  width: 453px;
+  color: #d54737;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin: 0 0 0 0;
+  line-height: normal;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .farewell-date-title,
+  .farewell-date-description {
+    width: 100%;
+    max-width: 689px;
+  }
+
+  .farewell-date-input {
+    width: 100%;
+    max-width: 795px;
+  }
+
+  .date-picker-wrapper {
+    left: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .farewell-date-title {
+    font-size: 32px;
+  }
+
+  .farewell-date-description {
+    font-size: 20px;
+  }
+
+  .farewell-date-label {
+    font-size: 24px;
+  }
+
+  .farewell-date-input {
+    font-size: 28px;
+    height: 64px;
+  }
+
+  .farewell-date-input-icon {
+    font-size: 28px;
+  }
+
+  .error-message {
+    font-size: 20px;
+  }
+}
+

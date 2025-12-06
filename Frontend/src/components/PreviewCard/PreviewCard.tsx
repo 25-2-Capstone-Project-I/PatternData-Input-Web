@@ -19,16 +19,24 @@ function PreviewCard({
   imageUrl,
   placeholder = '별명을 입력해 주세요.',
 }: PreviewCardProps) {
-  // 날짜 범위 계산: 둘 다 있을 때만 표시
-  // metDate만 있으면 metDate만 표시
-  // farewellDate만 있으면 farewellDate만 표시
+  // 날짜 포맷팅: YYYY-MM-DD -> YYYY.MM.DD
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return ''
+    const [year, month, day] = dateStr.split('-')
+    return `${year}.${month}.${day}`
+  }
+
+  // 날짜 범위 계산:
+  // - 둘 다 있으면: "YYYY.MM.DD - YYYY.MM.DD"
+  // - metDate만 있으면: "YYYY.MM.DD -" (farewellDate 입력 대기 중)
+  // - farewellDate만 있으면: "YYYY.MM.DD"
   const dateRange =
     metDate && farewellDate
-      ? `${metDate} - ${farewellDate}`
+      ? `${formatDate(metDate)} - ${formatDate(farewellDate)}`
       : metDate
-        ? metDate
+        ? `${formatDate(metDate)} -`
         : farewellDate
-          ? farewellDate
+          ? formatDate(farewellDate)
           : ''
 
   return (
