@@ -143,8 +143,8 @@ function BarcodePage({ formData, setFormData, setPatternImageUrl }: Props) {
         barcode: localBarcode,
       }))
 
-      // 종료 화면으로 이동
-      navigate('/end')
+      // 영상 페이지로 이동 (영상 종료 후 /end로 자동 이동)
+      navigate('/video')
     } catch (err) {
       console.error(err)
       setError('서버와 통신 중 문제가 발생했습니다.')
