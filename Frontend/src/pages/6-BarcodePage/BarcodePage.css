@@ -1,0 +1,243 @@
+/* BarcodePage 전용 스타일 */
+
+.barcode-title {
+  width: 689px;
+  color: #413932;
+  font-size: 45px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  margin: 0 0 18px 0;
+  line-height: normal;
+}
+
+.barcode-description {
+  width: 700px;
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin: 0 0 62px 0;
+  line-height: normal;
+}
+
+.barcode-form {
+  width: 795px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.barcode-label {
+  width: 248px;
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: normal;
+}
+
+.barcode-input {
+  width: 743px;
+  height: 48px;
+  background: white;
+  border-radius: 18px;
+  border: none;
+  outline: none;
+  padding: 18px 26px;
+  color: #413932;
+  font-size: 40px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 400;
+  transition: outline 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.barcode-input::placeholder {
+  color: rgba(65, 57, 50, 0.2);
+}
+
+.barcode-input:focus {
+  outline: 2px solid #5b4636;
+  outline-offset: -2px;
+}
+
+.barcode-input--error {
+  outline: 2px solid #d54737;
+  outline-offset: -2px;
+}
+
+.error-message {
+  height: 40px;
+  width: 743px;
+  color: #d54737;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 500;
+  margin: 0 0 0 0;
+  line-height: normal;
+}
+
+/* ========== 플립 카드 ========== */
+
+.flip-card-container {
+  width: 562px;
+  height: 764px;
+  position: absolute;
+  top: 157px;
+  left: 1258px;
+  perspective: 1600px;
+}
+
+.flip-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.flip-card--flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 48px;
+  overflow: hidden;
+  box-shadow: 0px 2.997333288192749px 29.97333335876465px rgba(91, 70, 54, 0.1);
+}
+
+/* 앞면 - 물건 사진 */
+.flip-card-front {
+  background: linear-gradient(180deg, #fffefd 0%, rgba(255, 254, 253, 0) 100%);
+}
+
+/* 뒷면 - 패턴 이미지 */
+.flip-card-back {
+  background: linear-gradient(180deg, #fffefd 0%, rgba(255, 254, 253, 0) 100%);
+  transform: rotateY(180deg);
+}
+
+/* 카드 내부 요소 */
+.flip-card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flip-card-from-label {
+  position: absolute;
+  left: 48px;
+  top: 48px;
+  color: #e5e2de;
+  font-size: 29.97px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.flip-card-nickname {
+  position: absolute;
+  left: 48px;
+  top: 96px;
+  opacity: 0.7;
+  color: #413932;
+  font-size: 44px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  line-height: normal;
+  word-wrap: break-word;
+}
+
+.flip-card-image-container {
+  position: absolute;
+  left: 48px;
+  top: 173px;
+  width: 466px;
+  height: 466px;
+  background: #f7f6f5;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.flip-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.flip-card-placeholder {
+  color: rgba(91, 70, 54, 0.1);
+  font-size: 120px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.flip-card-date {
+  position: absolute;
+  right: 48px;
+  top: 671px;
+  opacity: 0.7;
+  color: #413932;
+  font-size: 30px;
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-weight: 600;
+  line-height: normal;
+  text-align: right;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .barcode-title,
+  .barcode-description {
+    width: 100%;
+    max-width: 689px;
+  }
+
+  .barcode-input {
+    width: 100%;
+    max-width: 795px;
+  }
+
+  .flip-card-container {
+    position: relative;
+    width: 100%;
+    max-width: 466px;
+    margin: 40px auto;
+    left: auto;
+    top: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .barcode-title {
+    font-size: 32px;
+  }
+
+  .barcode-description {
+    font-size: 20px;
+  }
+
+  .barcode-label {
+    font-size: 24px;
+  }
+
+  .barcode-input {
+    font-size: 28px;
+    height: 64px;
+  }
+
+  .error-message {
+    font-size: 20px;
+  }
+}
+
