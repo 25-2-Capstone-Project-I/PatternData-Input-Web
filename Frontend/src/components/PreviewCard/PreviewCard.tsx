@@ -10,6 +10,11 @@ type PreviewCardProps = {
   farewellDate?: string
   imageUrl?: string | null
   placeholder?: string
+  // 플립 기능 지원 (EndPage용)
+  flipable?: boolean
+  isFlipped?: boolean
+  backImageUrl?: string | null
+
   // 사이즈 변형 (기본: large - 폼 페이지용, small - 아카이브 갤러리용)
   size?: 'large' | 'small'
   // 추가 클래스명
@@ -26,6 +31,9 @@ function PreviewCard({
   farewellDate,
   imageUrl,
   placeholder = '별명을 입력해 주세요.',
+  flipable = false,
+  isFlipped = false,
+  backImageUrl = null,
   size = 'large',
   className = '',
   onClick,
@@ -51,7 +59,16 @@ function PreviewCard({
           ? formatDate(farewellDate)
           : ''
 
-  const sizeClass = size === 'small' ? 'preview-card--small' : ''
+  // 카드 내용 렌더링 (앞면)
+  const renderFrontContent = () => (
+    <>
+      {/* 텍스트 요소들을 하나의 wrapper로 묶기 */}
+      <div className="preview-card-text-wrapper">
+        <span className="preview-from-label">FROM</span>
+        <span className="preview-nickname">{nickname || placeholder}</span>
+        {dateRange && <span className="preview-date">{dateRange}</span>}
+      </div>
+/*  const sizeClass = size === 'small' ? 'preview-card--small' : ''
 
   return (
     <aside
@@ -62,8 +79,8 @@ function PreviewCard({
     >
       <span className="preview-from-label">FROM</span>
       <span className="preview-nickname">{nickname || placeholder}</span>
-      
-      {/* 사진 영역 - 항상 표시 */}
+*/      
+      {/* 사진 영역 */}
       <div className="preview-image-container">
         {imageUrl ? (
           <img
@@ -76,9 +93,54 @@ function PreviewCard({
           <div className="preview-image-placeholder">?</div>
         )}
       </div>
+    </>
+  )
 
-      {/* 날짜 - 맨 아래 오른쪽 정렬 */}
-      {dateRange && <span className="preview-date">{dateRange}</span>}
+  // 카드 내용 렌더링 (뒷면 - 패턴 이미지 + 텍스트)
+  const renderBackContent = () => (
+    <>
+      {/* 텍스트 요소들을 하나의 wrapper로 묶기 */}
+      <div className="preview-card-text-wrapper">
+        <span className="preview-from-label">FROM</span>
+        <span className="preview-nickname">{nickname || placeholder}</span>
+        {dateRange && <span className="preview-date">{dateRange}</span>}
+      </div>
+      
+      {/* 패턴 이미지 영역 */}
+      <div className="preview-image-container">
+        {backImageUrl ? (
+          <img src={backImageUrl} alt="Pattern" className="preview-image" />
+        ) : (
+          <div className="preview-image-placeholder">패턴 이미지</div>
+        )}
+      </div>
+    </>
+  )
+
+  // 플립 가능한 카드
+  if (flipable) {
+    return (
+      <div
+        className={`preview-card preview-card--flip-base ${isFlipped ? 'preview-card--flipped' : ''} ${className}`}
+        onClick={onClick}
+        style={{ cursor: onClick ? 'pointer' : 'default' }}
+      >
+        {/* 앞면 */}
+        <div className="preview-card-face preview-card-front">
+          {renderFrontContent()}
+        </div>
+        {/* 뒷면 */}
+        <div className="preview-card-face preview-card-back">
+          {renderBackContent()}
+        </div>
+      </div>
+    )
+  }
+
+  // 일반 카드 (기존 동작)
+  return (
+    <aside className={`preview-card ${className}`}>
+      {renderFrontContent()}
     </aside>
   )
 }
