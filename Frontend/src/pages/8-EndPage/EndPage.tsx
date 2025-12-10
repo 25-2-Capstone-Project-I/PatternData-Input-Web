@@ -4,12 +4,12 @@
 // - 3) QR + 카드 플립 + 자동 홈으로 돌아가기
 
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import PreviewCard from '../../components/PreviewCard/PreviewCard'
 import './EndPage.css'
 
-// 도베가 실제 mp4 파일을 이 경로에 맞춰 넣어줘
 // (이미 잘 나오고 있다면 기존 import 경로 그대로 사용해도 됨)
 import endBackgroundVideo from '../../assets/videos/end-background.mp4'
+import qrImage from '../../assets/images/qr-archive-login.png'
 
 type Props = {
   patternImageUrl: string | null
@@ -23,7 +23,7 @@ type Props = {
 type Step = 'video' | 'card' | 'qr'
 
 const VIDEO_DURATION_MS = 8000
-const AUTO_RESET_DELAY_MS = 40000  // 40초
+const AUTO_RESET_DELAY_MS = 4000000  // 40초
 
 function EndPage({
   patternImageUrl,
@@ -32,7 +32,6 @@ function EndPage({
   farewellDate,
   objectImageUrl,
 }: Props) {
-  const navigate = useNavigate()
   const [step, setStep] = useState<Step>('video')
   const [isFlipped, setIsFlipped] = useState(false)
 
@@ -74,12 +73,6 @@ function EndPage({
       setIsFlipped((prev) => !prev)
     }
   }
-
-  // 날짜 표시
-  const dateRange =
-    metDate && farewellDate
-      ? `${metDate} - ${farewellDate}`
-      : farewellDate ?? metDate ?? ''
 
   // 물건 사진 (촬영본) – 없으면 아주 연한 placeholder
   const effectiveObjectImage =
@@ -133,30 +126,14 @@ function EndPage({
             className="memory-card-wrapper memory-card-wrapper--center"
             onClick={handleCardClick}
           >
-            <div className="memory-card memory-card--enter">
-              {/* 앞면만 필요 – 이 단계에서는 뒷면은 QR 화면에서만 사용 */}
-              <div className="memory-card-face memory-card-front">
-                <div className="memory-card-header">
-                  <span className="from-label">FROM</span>
-                  {nickname && (
-                    <span className="from-name">{nickname}</span>
-                  )}
-                </div>
-
-                <div className="memory-card-image-frame">
-                  <img
-                    src={effectiveObjectImage}
-                    alt="물건 사진 이미지"
-                    className="memory-card-image"
-                  />
-                </div>
-
-                {dateRange && (
-                  <div className="memory-card-footer">
-                    <span className="date-range">{dateRange}</span>
-                  </div>
-                )}
-              </div>
+            <div className="memory-card--enter">
+              <PreviewCard
+                nickname={nickname}
+                metDate={metDate}
+                farewellDate={farewellDate}
+                imageUrl={effectiveObjectImage}
+                className="memory-card--enter-preview"
+              />
             </div>
           </div>
         </div>
@@ -182,7 +159,7 @@ function EndPage({
               </p>
 
               <div className="qr-box">
-                {/* 나중에 QR 이미지를 <img src={...}/>로 교체 */}
+                <img src={qrImage} alt="QR Code" />
                 <span>사이트 로그인 링크 QR</span>
               </div>
 
@@ -196,66 +173,16 @@ function EndPage({
               className="memory-card-wrapper memory-card-wrapper--right"
               onClick={handleCardClick}
             >
-              <div
-                className={
-                  'memory-card memory-card--flip-base ' +
-                  (isFlipped ? 'memory-card--flipped' : '')
-                }
-              >
-                {/* 앞면: 물건 사진 */}
-                <div className="memory-card-face memory-card-front">
-                  <div className="memory-card-header">
-                    <span className="from-label">FROM</span>
-                    {nickname && (
-                      <span className="from-name">{nickname}</span>
-                    )}
-                  </div>
-
-                  <div className="memory-card-image-frame">
-                    <img
-                      src={effectiveObjectImage}
-                      alt="물건 사진 이미지"
-                      className="memory-card-image"
-                    />
-                  </div>
-
-                  {dateRange && (
-                    <div className="memory-card-footer">
-                      <span className="date-range">{dateRange}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* 뒷면: 패턴 이미지 */}
-                <div className="memory-card-face memory-card-back">
-                  <div className="memory-card-header">
-                    <span className="from-label">FROM</span>
-                    {nickname && (
-                      <span className="from-name">{nickname}</span>
-                    )}
-                  </div>
-
-                  <div className="memory-card-image-frame">
-                    {patternImageUrl ? (
-                      <img
-                        src={patternImageUrl}
-                        alt="패턴 이미지"
-                        className="memory-card-image"
-                      />
-                    ) : (
-                      <div className="memory-card-image placeholder-pattern">
-                        패턴 이미지
-                      </div>
-                    )}
-                  </div>
-
-                  {dateRange && (
-                    <div className="memory-card-footer">
-                      <span className="date-range">{dateRange}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <PreviewCard
+                nickname={nickname}
+                metDate={metDate}
+                farewellDate={farewellDate}
+                imageUrl={effectiveObjectImage}
+                backImageUrl={patternImageUrl}
+                flipable={true}
+                isFlipped={isFlipped}
+                className="memory-card--flip-base"
+              />
             </div>
           </div>
         </div>
