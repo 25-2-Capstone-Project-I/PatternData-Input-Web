@@ -1,0 +1,332 @@
+/* ArchivePage 전용 스타일 */
+
+.archive-page-root {
+  width: 100%;
+  height: 100vh;
+  background-color: #f9f9f9;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Pretendard', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+}
+
+/* 로고 */
+.archive-logo {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  line-height: 0.7;
+  font-family: 'Bristol', 'Pretendard', system-ui, sans-serif;
+  color: #5b4636;
+  text-align: center;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  z-index: 200;
+}
+
+/* 로딩/에러/빈 상태 */
+.archive-loading,
+.archive-error,
+.archive-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #5b4636;
+  text-align: center;
+}
+
+.archive-error {
+  color: #d9534f;
+}
+
+/* ========== 갤러리 뷰 ========== */
+
+.archive-gallery {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 36px;
+  cursor: grab;
+  user-select: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.archive-gallery:active {
+  cursor: grabbing;
+}
+
+.archive-gallery--hidden {
+  opacity: 0;
+  transform: translateY(100px);
+  pointer-events: none;
+}
+
+/* 카드 컨테이너 */
+.archive-cards-container {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* 외부 카드 래퍼 (x축 이동 담당 - 드래그 시 즉시 반응) */
+.archive-card-outer {
+  position: absolute;
+  bottom: 0;
+}
+
+/* 내부 카드 래퍼 (y축 이동 + 스케일 담당 - 호버 해제 시 부드럽게) */
+.archive-card-inner {
+  cursor: pointer;
+}
+
+/* 갤러리 내 PreviewCard 스타일 오버라이드 */
+.archive-card-inner .preview-card--small {
+  box-shadow: 0px 2.4px 24px rgba(91, 70, 54, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* 호버된 카드 강조 효과 */
+.archive-card-inner--hovered .preview-card--small {
+  box-shadow: 0px 8px 48px rgba(91, 70, 54, 0.25);
+}
+
+
+/* ========== 미니맵 ========== */
+
+.archive-minimap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  margin-top: 24px;
+  position: relative;
+  z-index: 300;
+}
+
+.archive-minimap-bar {
+  width: 4px;
+  background: #403024;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: height 0.15s ease-out, opacity 0.15s ease-out;
+  opacity: 0.5;
+}
+
+.archive-minimap-bar--active {
+  opacity: 1;
+}
+
+.archive-minimap-bar:hover {
+  opacity: 0.8;
+}
+
+/* ========== 상세 뷰 ========== */
+
+.archive-detail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: detailFadeIn 0.5s ease forwards;
+  margin-top: 320px;
+}
+
+/* 상세 뷰 나갈 때 */
+.archive-detail--exiting {
+  animation: detailFadeOut 0.5s ease forwards;
+}
+
+@keyframes detailFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes detailFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.archive-detail-card-wrapper {
+  perspective: 1600px;
+  cursor: pointer;
+  animation: cardSlideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* 호버 상태에서 클릭한 경우: 더 짧은 거리 이동 */
+.archive-detail-card-wrapper--from-hover {
+  animation: cardSlideUpFromHover 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* 상세페이지에서 나갈 때: 아래로 내려가는 애니메이션 */
+.archive-detail-card-wrapper--exiting {
+  animation: cardSlideDown 0.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes cardSlideUp {
+  from {
+    transform: translateY(300px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 호버 상태에서 진입 시 더 짧은 거리 */
+@keyframes cardSlideUpFromHover {
+  from {
+    transform: translateY(80px);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 갤러리로 돌아갈 때 원래 자리로 내려가는 애니메이션 */
+@keyframes cardSlideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(200px);
+    opacity: 1;
+  }
+}
+
+.archive-detail-card {
+  width: 450px;
+  height: 612px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.archive-detail-card--flipped {
+  transform: rotateY(180deg);
+}
+
+.archive-detail-face {
+  position: absolute;
+  inset: 0;
+  width: 450px;
+  height: 612px;
+  backface-visibility: hidden;
+  border-radius: 38px;
+  overflow: hidden;
+}
+
+.archive-detail-front {
+  z-index: 2;
+}
+
+.archive-detail-back {
+  transform: rotateY(180deg);
+}
+
+/* 상세 뷰 내 PreviewCard 스타일 오버라이드 */
+.archive-detail-preview-card {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  box-shadow: 0px 2.4px 24px rgba(91, 70, 54, 0.1);
+}
+
+/* 내려가기 버튼 */
+.archive-down-button {
+  margin-top: 40px;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: buttonSlideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+  transition: transform 0.3s ease;
+}
+
+/* 버튼 exit 애니메이션 */
+.archive-down-button--exiting {
+  animation: buttonSlideDown 0.4s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes buttonSlideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes buttonSlideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+}
+
+.archive-down-button:hover {
+  transform: scale(1.1);
+}
+
+.archive-down-button:active {
+  transform: scale(0.95);
+}
+
+.archive-down-button img {
+  width: 51px;
+  height: 30px;
+  display: block;
+}
+
+/* ========== 반응형 ========== */
+
+@media (max-width: 768px) {
+  .archive-logo {
+    font-size: 28px;
+    top: 32px;
+  }
+
+  .archive-detail-face,
+  .archive-detail-card {
+    width: 320px;
+    height: 436px;
+    border-radius: 28px;
+  }
+
+  .archive-cards-container {
+    height: 500px;
+  }
+}

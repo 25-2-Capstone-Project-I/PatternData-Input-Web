@@ -10,6 +10,50 @@
     rgba(91, 70, 54, 0.1);
   border-radius: 48px;
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Small 사이즈 (아카이브 갤러리용) */
+.preview-card--small {
+  width: 450px;
+  height: 612px;
+  position: relative;
+  top: auto;
+  left: auto;
+  background: #fffefd;
+  border-radius: 38px;
+  cursor: pointer;
+}
+
+.preview-card--small .preview-from-label {
+  left: 36px;
+  top: 36px;
+  font-size: 24px;
+}
+
+.preview-card--small .preview-nickname {
+  left: 36px;
+  top: 73px;
+  font-size: 36px;
+}
+
+.preview-card--small .preview-image-container {
+  left: 36px;
+  top: 132px;
+  width: 378px;
+  height: 378px;
+  border-radius: 19.2px;
+}
+
+.preview-card--small .preview-image-placeholder {
+  font-size: 80px;
+}
+
+.preview-card--small .preview-date {
+  right: 36px;
+  top: auto;
+  bottom: 42px;
+  font-size: 24px;
 }
 
 .preview-from-label {
