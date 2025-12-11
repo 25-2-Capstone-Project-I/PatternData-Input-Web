@@ -9,24 +9,24 @@ import './VideoPage.css'
 
 // 계절별 영상 import
 import springToSpring from '../../assets/videos/spring/spring.mp4'
-// import springToSummer from '../../assets/videos/spring/summer.mp4'
-// import springToAutumn from '../../assets/videos/spring/autumn.mp4'
-// import springToWinter from '../../assets/videos/spring/winter.mp4'
+import springToSummer from '../../assets/videos/spring/summer.mp4'
+import springToAutumn from '../../assets/videos/spring/autumn.mp4'
+import springToWinter from '../../assets/videos/spring/winter.mp4'
 
-// import summerToSpring from '../../assets/videos/summer/spring.mp4'
-// import summerToSummer from '../../assets/videos/summer/summer.mp4'
-// import summerToAutumn from '../../assets/videos/summer/autumn.mp4'
-// import summerToWinter from '../../assets/videos/summer/winter.mp4'
+import summerToSpring from '../../assets/videos/summer/spring.mp4'
+import summerToSummer from '../../assets/videos/summer/summer.mp4'
+import summerToAutumn from '../../assets/videos/summer/autumn.mp4'
+import summerToWinter from '../../assets/videos/summer/winter.mp4'
 
-// import autumnToSpring from '../../assets/videos/autumn/spring.mp4'
-// import autumnToSummer from '../../assets/videos/autumn/summer.mp4'
+import autumnToSpring from '../../assets/videos/autumn/spring.mp4'
+import autumnToSummer from '../../assets/videos/autumn/summer.mp4'
 import autumnToAutumn from '../../assets/videos/autumn/autumn.mp4'
-// import autumnToWinter from '../../assets/videos/autumn/winter.mp4'
+import autumnToWinter from '../../assets/videos/autumn/winter.mp4'
 
-// import winterToSpring from '../../assets/videos/winter/spring.mp4'
-// import winterToSummer from '../../assets/videos/winter/summer.mp4'
-// import winterToAutumn from '../../assets/videos/winter/autumn.mp4'
-// import winterToWinter from '../../assets/videos/winter/winter.mp4'
+import winterToSpring from '../../assets/videos/winter/spring.mp4'
+import winterToSummer from '../../assets/videos/winter/summer.mp4'
+import winterToAutumn from '../../assets/videos/winter/autumn.mp4'
+import winterToWinter from '../../assets/videos/winter/winter.mp4'
 
 // 자막 문장들
 const SUBTITLES = [
@@ -59,27 +59,27 @@ const getVideoSource = (metSeason: Season, farewellSeason: Season): string => {
   const videoMap: Record<Season, Record<Season, string>> = {
     spring: {
       spring: springToSpring,
-      summer: springToSpring,   // springToSummer,
-      autumn: springToSpring,   // springToAutumn,
-      winter: springToSpring,   // springToWinter,
+      summer: springToSummer,   // springToSummer,
+      autumn: springToAutumn,   // springToAutumn,
+      winter: springToWinter,   // springToWinter,
     },
     summer: {
-      spring: springToSpring,   // summerToSpring,
-      summer: springToSpring,   // SummerToSpring,
-      autumn: springToSpring,   // summerToAutumn,
-      winter: springToSpring,   // summerToWinter,
+      spring: summerToSpring,   // summerToSpring,
+      summer: summerToSummer,   // SummerToSpring,
+      autumn: summerToAutumn,   // summerToAutumn,
+      winter: summerToWinter,   // summerToWinter,
     },
     autumn: {
-      spring: springToSpring,   // autumnToSpring,
-      summer: springToSpring,   // autumnToSummer,
+      spring: autumnToSpring,   // autumnToSpring,
+      summer: autumnToSummer,   // autumnToSummer,
       autumn: autumnToAutumn,
-      winter: springToSpring,   // autumnToWinter,
+      winter: autumnToWinter,   // autumnToWinter,
     },
     winter: {
-      spring: springToSpring,   // winterToSpring,
-      summer: springToSpring,   // winterToSummer,
-      autumn: springToSpring,   // winterToAutumn,
-      winter: springToSpring,   // winterToWinter,
+      spring: winterToSpring,   // winterToSpring,
+      summer: winterToSummer,   // winterToSummer,
+      autumn: winterToAutumn,   // winterToAutumn,
+      winter: winterToWinter,   // winterToWinter,
     },
   }
 
@@ -125,7 +125,6 @@ function VideoPage({ metDate, farewellDate }: VideoPageProps) {
         className="video-background"
         src={videoSource}
         autoPlay
-        muted
         playsInline
         onEnded={handleVideoEnd}
       />
