@@ -5,6 +5,8 @@
 // - 선택된 카드는 클릭으로 flip 가능
 // - downButton 클릭 시 갤러리 뷰로 복귀
 
+import { useEffect, useState } from 'react'
+import { API_BASE } from '../../config/api'
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import './ArchivePage.css'
 import PreviewCard from '../../components/PreviewCard/PreviewCard'

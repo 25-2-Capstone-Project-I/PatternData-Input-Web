@@ -11,10 +11,8 @@ import type { FormPageProps } from '../../App'
 import FormPageLayout from '../../components/FormPageLayout/FormPageLayout'
 import PreviewCard from '../../components/PreviewCard/PreviewCard'
 import FormButton from '../../components/FormButton/FormButton'
+import { API_BASE } from '../../config/api'
 import './NicknamePage.css'
-
-// 백엔드 기본 URL (필요에 따라 수정 가능)
-const API_BASE = 'http://127.0.0.1:8000'
 
 function NicknamePage({ formData, setFormData }: FormPageProps) {
   const navigate = useNavigate()

@@ -12,9 +12,8 @@ import type { FormEvent } from 'react'
 import type { ProductFormData, FormPageProps } from '../../App'
 import FormPageLayout from '../../components/FormPageLayout/FormPageLayout'
 import FormButton from '../../components/FormButton/FormButton'
+import { API_BASE } from '../../config/api'
 import './BarcodePage.css'
-
-const API_BASE = 'http://127.0.0.1:8000'
 
 // dataURL → Blob 변환 유틸 함수
 const dataUrlToBlob = (dataUrl: string): Blob => {
