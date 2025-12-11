@@ -20,7 +20,11 @@ function WaitPage() {
       <CircleItems />
 
       {/* 상단 로고 */}
-      <div className="logo-text">woven memory</div>
+      <div className="logo-text">
+        woven
+        <br />
+        memory
+      </div>
 
       {/* 중앙 메인 텍스트 */}
       <div className="main-text">

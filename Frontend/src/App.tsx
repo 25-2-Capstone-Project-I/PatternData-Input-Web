@@ -2,7 +2,7 @@
 // - 입력 플로우에서 사용할 formData
 // - Django에서 생성한 pattern 이미지 URL
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import WaitPage from './pages/1-WaitPage/WaitPage.tsx'
@@ -32,6 +32,9 @@ export type FormPageProps = {
   setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>
 }
 
+// 커서 숨김 타이머 (ms)
+const CURSOR_HIDE_DELAY = 5000
+
 function App() {
   // 플로우 전반에서 공유되는 데이터
   const [formData, setFormData] = useState<ProductFormData>({
@@ -42,6 +45,39 @@ function App() {
 
   // Django에서 패턴 생성 후 돌려준 이미지 URL
   const [patternImageUrl, setPatternImageUrl] = useState<string | null>(null)
+
+  // 커서 숨기기 기능
+  const cursorTimeoutRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    const showCursor = () => {
+      document.body.style.cursor = 'auto'
+      
+      // 이전 타이머 초기화
+      if (cursorTimeoutRef.current) {
+        clearTimeout(cursorTimeoutRef.current)
+      }
+      
+      // 5초 후 커서 숨기기
+      cursorTimeoutRef.current = window.setTimeout(() => {
+        document.body.style.cursor = 'none'
+      }, CURSOR_HIDE_DELAY)
+    }
+
+    // 마우스 이동 시 커서 보이기
+    window.addEventListener('mousemove', showCursor)
+    
+    // 초기 타이머 시작
+    showCursor()
+
+    return () => {
+      window.removeEventListener('mousemove', showCursor)
+      if (cursorTimeoutRef.current) {
+        clearTimeout(cursorTimeoutRef.current)
+      }
+      document.body.style.cursor = 'auto'
+    }
+  }, [])
 
   return (
     <Routes>

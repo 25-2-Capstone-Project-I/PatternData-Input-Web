@@ -12,10 +12,11 @@
   position: absolute;
   top: 60px;
   width: 100%;
+  line-height: 30px;
   text-align: center;
   font-family: 'Bristol';
-  font-size: 30px;
-  color: #2b2b2b;
+  font-size: 40px;
+  color: #5B4636;
 }
 
 /* 메인 문구 */
@@ -71,15 +72,15 @@
 
 /* 큰 원: 천천히 시계 방향 회전 */
 .circle-ring--big {
-  width: 1600px;  /* 필요하면 조정 */
-  height: 1600px;
+  width: 1900px;  /* 필요하면 조정 */
+  height: 1900px;
   animation: rotateBig 40s linear infinite;
 }
 
 /* 작은 원: 조금 빠르게 반대 방향 회전 (전시용 느낌) */
 .circle-ring--small {
-  width: 1100px;  /* 필요하면 조정 */
-  height: 1100px;
+  width: 1300px;  /* 필요하면 조정 */
+  height: 1300px;
   animation: rotateSmall 28s linear infinite;
 }
 
