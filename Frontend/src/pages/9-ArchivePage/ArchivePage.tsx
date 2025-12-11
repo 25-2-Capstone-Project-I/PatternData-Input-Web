@@ -5,15 +5,12 @@
 // - 선택된 카드는 클릭으로 flip 가능
 // - downButton 클릭 시 갤러리 뷰로 복귀
 
-import { useEffect, useState } from 'react'
-import { API_BASE } from '../../config/api'
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
+import { API_BASE } from '../../config/api'
 import './ArchivePage.css'
 import PreviewCard from '../../components/PreviewCard/PreviewCard'
 
 import downButtonSvg from '../../assets/images/buttons/downButton.svg'
-
-const API_BASE = 'http://127.0.0.1:8000'
 
 // 드래그와 클릭을 구분하기 위한 threshold (px)
 const DRAG_THRESHOLD = 10
