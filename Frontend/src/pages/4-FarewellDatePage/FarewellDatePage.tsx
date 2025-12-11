@@ -169,9 +169,9 @@ function FarewellDatePage({ formData, setFormData }: FormPageProps) {
           <p className="error-message">{error}</p>
 
           <FormButton type="button" onClick={handleNext} disabled={!isButtonEnabled}>
-            다음으로
+        다음으로
           </FormButton>
-        </div>
+    </div>
       </FormPageLayout>
 
       <PreviewCard
