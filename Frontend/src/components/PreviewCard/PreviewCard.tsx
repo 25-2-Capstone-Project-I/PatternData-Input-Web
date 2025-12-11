@@ -15,7 +15,7 @@ type PreviewCardProps = {
   isFlipped?: boolean
   backImageUrl?: string | null
 
-  // 사이즈 변형 (기본: large - 폼 페이지용, small - 아카이브 갤러리용)
+  // 사이즈 변형 (기본: large - 폼 페이지용, small - 아카이브/엔드 페이지용)
   size?: 'large' | 'small'
   // 추가 클래스명
   className?: string
@@ -59,6 +59,9 @@ function PreviewCard({
           ? formatDate(farewellDate)
           : ''
 
+  // 사이즈 클래스
+  const sizeClass = size === 'small' ? 'preview-card--small' : ''
+
   // 카드 내용 렌더링 (앞면)
   const renderFrontContent = () => (
     <>
@@ -68,18 +71,7 @@ function PreviewCard({
         <span className="preview-nickname">{nickname || placeholder}</span>
         {dateRange && <span className="preview-date">{dateRange}</span>}
       </div>
-/*  const sizeClass = size === 'small' ? 'preview-card--small' : ''
-
-  return (
-    <aside
-      className={`preview-card ${sizeClass} ${className}`.trim()}
-      onClick={onClick}
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick ? 0 : undefined}
-    >
-      <span className="preview-from-label">FROM</span>
-      <span className="preview-nickname">{nickname || placeholder}</span>
-*/      
+      
       {/* 사진 영역 */}
       <div className="preview-image-container">
         {imageUrl ? (
@@ -121,7 +113,7 @@ function PreviewCard({
   if (flipable) {
     return (
       <div
-        className={`preview-card preview-card--flip-base ${isFlipped ? 'preview-card--flipped' : ''} ${className}`}
+        className={`preview-card ${sizeClass} preview-card--flip-base ${isFlipped ? 'preview-card--flipped' : ''} ${className}`.trim()}
         onClick={onClick}
         style={{ cursor: onClick ? 'pointer' : 'default' }}
       >
@@ -139,11 +131,15 @@ function PreviewCard({
 
   // 일반 카드 (기존 동작)
   return (
-    <aside className={`preview-card ${className}`}>
+    <aside
+      className={`preview-card ${sizeClass} ${className}`.trim()}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+    >
       {renderFrontContent()}
     </aside>
   )
 }
 
 export default PreviewCard
-

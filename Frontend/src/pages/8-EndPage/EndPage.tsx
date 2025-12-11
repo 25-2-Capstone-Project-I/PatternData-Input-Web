@@ -128,6 +128,7 @@ function EndPage({
           >
             <div className="memory-card--enter">
               <PreviewCard
+                size="small"
                 nickname={nickname}
                 metDate={metDate}
                 farewellDate={farewellDate}
@@ -174,6 +175,7 @@ function EndPage({
               onClick={handleCardClick}
             >
               <PreviewCard
+                size="small"
                 nickname={nickname}
                 metDate={metDate}
                 farewellDate={farewellDate}
@@ -181,7 +183,6 @@ function EndPage({
                 backImageUrl={patternImageUrl}
                 flipable={true}
                 isFlipped={isFlipped}
-                className="memory-card--flip-base"
               />
             </div>
           </div>

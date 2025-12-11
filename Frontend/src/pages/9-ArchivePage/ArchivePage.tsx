@@ -37,6 +37,7 @@ function ArchivePage() {
   const [products, setProducts] = useState<Product[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [isMobile, setIsMobile] = useState(false) // 모바일 뷰 감지
 
   // 갤러리 상태
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -56,6 +57,16 @@ function ArchivePage() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isExiting, setIsExiting] = useState(false) // 상세페이지에서 나가는 중
   const [wasHoveredOnClick, setWasHoveredOnClick] = useState(false) // 클릭 시 호버 상태였는지
+
+  // 모바일 감지
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 500)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // 데이터 로드
   useEffect(() => {
@@ -99,27 +110,33 @@ function ArchivePage() {
     return path.startsWith('http') ? path : `${API_BASE}${path}`
   }
 
+  // 모바일/데스크탑 별 설정값
+  const cardGap = isMobile ? 90 : 280 // 카드 간 거리
+  const baseYOffset = isMobile ? -100 : 200 // 기본 y 오프셋 (음수 = 위로)
+  const hoverLift = isMobile ? 100 : 120 // 호버 시 위로 올라가는 거리
+  const yOffsetMultiplier = isMobile ? 6 : 10 // 이차함수 계수 (작을수록 완만)
+
   // 실시간 인덱스 계산 (드래그 중에도 반영)
   const visualIndex = useMemo(() => {
     if (!isDragging) return currentIndex
     // 드래그 오프셋에 따른 실시간 인덱스 계산
-    const indexChange = -dragOffset / 200
+    const indexChange = -dragOffset / cardGap
     let newIndex = currentIndex + indexChange
     // 범위 제한
     if (newIndex < 0) newIndex = 0
     if (newIndex >= products.length) newIndex = products.length - 1
     return newIndex
-  }, [currentIndex, dragOffset, isDragging, products.length])
+  }, [currentIndex, dragOffset, isDragging, products.length, cardGap])
 
   // 카드 외부 스타일 (x축 이동 - 드래그 시 즉시 반응)
   const getCardOuterStyle = (index: number) => {
     const totalOffset = index - visualIndex
 
     // 좌우 위치 (겹침 효과)
-    const xOffset = totalOffset * 200
+    const xOffset = totalOffset * cardGap
 
-    // z-index (중앙이 가장 위)
-    const zIndex = 100 - Math.abs(Math.round(totalOffset))
+    // z-index (오른쪽이 위로 겹침)
+    const zIndex = 50 + Math.round(totalOffset)
 
     return {
       transform: `translateX(${xOffset}px)`,
@@ -129,24 +146,21 @@ function ArchivePage() {
     }
   }
 
-  // 카드 내부 스타일 (y축 이동, 스케일 - 호버 해제 시 부드럽게)
+  // 카드 내부 스타일 (y축 이동 - 호버 해제 시 부드럽게)
   const getCardInnerStyle = (index: number) => {
     const totalOffset = index - visualIndex
     const absOffset = Math.abs(totalOffset)
 
-    // 중앙에서 멀어질수록 아래로 내려감
-    let yOffset = absOffset * absOffset * 10 + 200
+    // 중앙에서 멀어질수록 아래로 내려감 (이차함수 - 중앙이 꼭짓점)
+    let yOffset = absOffset * absOffset * yOffsetMultiplier + baseYOffset
 
     // 호버된 카드는 위로 올라옴 (드래그 중이 아닐 때만)
     const isHovered = !isDragging && hoveredIndex === index
     if (isHovered) {
-      yOffset -= 220
+      yOffset -= hoverLift
     }
 
-    // 스케일 (중앙이 가장 큼)
-    const scale = Math.max(0.7, 1 - absOffset * 0.08)
-
-    // y축과 스케일은 항상 부드럽게 transition (호버 해제 애니메이션 포함)
+    // y축은 항상 부드럽게 transition (호버 해제 애니메이션 포함)
     // 단, 드래그 중에 호버 해제가 아닌 카드는 transition 없음
     let transition = 'transform 0.4s ease-out'
     if (isDragging && hoverExitingIndex !== index) {
@@ -154,7 +168,7 @@ function ArchivePage() {
     }
 
     return {
-      transform: `translateY(${yOffset}px) scale(${scale})`,
+      transform: `translateY(${yOffset}px)`,
       transition,
     }
   }
@@ -162,9 +176,10 @@ function ArchivePage() {
   // 미니맵 바 높이 계산 (실시간 반영)
   const getMiniBarHeight = (index: number) => {
     const offset = Math.abs(index - visualIndex)
-    const baseHeight = 32
-    const minHeight = 16
-    return Math.max(minHeight, baseHeight - offset * 4)
+    const baseHeight = isMobile ? 20 : 32
+    const minHeight = isMobile ? 10 : 16
+    const step = isMobile ? 2.5 : 4
+    return Math.max(minHeight, baseHeight - offset * step)
   }
 
   // 미니맵 바 활성화 여부 (실시간 반영)
@@ -218,7 +233,7 @@ function ArchivePage() {
     setIsDragging(false)
 
     // 드래그 거리에 따라 인덱스 변경
-    const indexChange = Math.round(-dragOffset / 200)
+    const indexChange = Math.round(-dragOffset / cardGap)
     let newIndex = dragStartIndex.current + indexChange
 
     // 범위 제한 (탄성 효과)
@@ -227,7 +242,7 @@ function ArchivePage() {
 
     setCurrentIndex(newIndex)
     setDragOffset(0)
-  }, [isDragging, dragOffset, products.length])
+  }, [isDragging, dragOffset, products.length, cardGap])
 
   // 마우스 이벤트
   const handleMouseDown = (e: React.MouseEvent) => handleDragStart(e.clientX)
@@ -266,10 +281,14 @@ function ArchivePage() {
           setIsTransitioning(false)
         }, 400)
       } else {
-        // 중앙 카드 클릭 시 바로 상세 뷰로
-        setSelectedIndex(index)
-        setViewMode('detail')
-        // 호버 상태 유지 (상세페이지 전환 후 초기화됨)
+        // 중앙 카드 클릭 시 - 갤러리 숨기기 애니메이션 후 상세 뷰로
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setSelectedIndex(index)
+          setViewMode('detail')
+          setHoveredIndex(null)
+          setIsTransitioning(false)
+        }, 500) // 갤러리 숨기기 애니메이션 완료 후
       }
     }
   }
@@ -333,7 +352,7 @@ function ArchivePage() {
 
       {/* 갤러리 뷰 */}
       <div
-        className={`archive-gallery ${viewMode === 'detail' ? 'archive-gallery--hidden' : ''}`}
+        className={`archive-gallery ${viewMode === 'detail' || isTransitioning ? 'archive-gallery--hidden' : ''}`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

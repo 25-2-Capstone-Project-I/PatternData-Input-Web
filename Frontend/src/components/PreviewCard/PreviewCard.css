@@ -13,7 +13,7 @@
   box-sizing: border-box;
 }
 
-/* Small 사이즈 (아카이브 갤러리용) */
+/* Small 사이즈 (아카이브/엔드 페이지용 - 데스크탑) */
 .preview-card--small {
   width: 450px;
   height: 612px;
@@ -54,6 +54,49 @@
   top: auto;
   bottom: 42px;
   font-size: 24px;
+}
+
+/* 모바일 갤러리용 (124x170px 카드) */
+@media (max-width: 500px) {
+  .preview-card--small {
+    width: 124px;
+    height: 170px;
+    position: relative;
+    top: auto;
+    left: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0.66px 6.64px rgba(91, 70, 54, 0.1);
+  }
+
+  .preview-card--small .preview-from-label {
+    left: 8px;
+    top: 8px;
+    font-size: 6px;
+  }
+
+  .preview-card--small .preview-nickname {
+    left: 8px;
+    top: 17px;
+    font-size: 10px;
+  }
+
+  .preview-card--small .preview-image-container {
+    left: 8px;
+    top: 35px;
+    width: 108px;
+    height: 108px;
+    border-radius: 6px;
+  }
+
+  .preview-card--small .preview-image-placeholder {
+    font-size: 24px;
+  }
+
+  .preview-card--small .preview-date {
+    right: 8px;
+    bottom: 8px;
+    font-size: 6px;
+  }
 }
 
 .preview-from-label {
@@ -195,9 +238,9 @@
   transform: rotateY(-180deg);
 }
 
-/* 반응형 */
+/* 반응형 (기본 폼 페이지용 카드 - small 제외) */
 @media (max-width: 1024px) {
-  .preview-card {
+  .preview-card:not(.preview-card--small) {
     position: relative;
     width: 100%;
     max-width: 466px;
@@ -208,18 +251,18 @@
 }
 
 @media (max-width: 768px) {
-  .preview-card {
+  .preview-card:not(.preview-card--small) {
     width: 100%;
     max-width: 400px;
     height: auto;
     min-height: 400px;
   }
 
-  .preview-nickname {
+  .preview-card:not(.preview-card--small) .preview-nickname {
     font-size: 32px;
   }
 
-  .preview-date {
+  .preview-card:not(.preview-card--small) .preview-date {
     font-size: 20px;
   }
 }
