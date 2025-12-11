@@ -33,7 +33,7 @@ function EndPage({
   objectImageUrl,
 }: Props) {
   const [step, setStep] = useState<Step>('video')
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [isFlipped, setIsFlipped] = useState(true) // 카드가 뒤집힌 상태로 시작
 
   // 1) 페이지 처음 들어오면 8초 뒤에 카드 화면으로 전환
   useEffect(() => {
@@ -61,10 +61,10 @@ function EndPage({
   }
 
   const handleCardClick = () => {
-    // 카드 화면에서 카드를 누르면 QR 화면으로 이동 (카드가 오른쪽으로 이동)
+    // 카드 화면에서 카드를 누르면 바로 QR 화면으로 이동
     if (step === 'card') {
       setStep('qr')
-      setIsFlipped(false)
+      setIsFlipped(true) // QR 화면에서는 패턴 이미지(뒤집힌 상태)로 시작
       return
     }
 
@@ -133,10 +133,13 @@ function EndPage({
                 metDate={metDate}
                 farewellDate={farewellDate}
                 imageUrl={effectiveObjectImage}
+                backImageUrl={patternImageUrl}
+                flipable={true}
+                isFlipped={isFlipped}
                 className="memory-card--enter-preview"
               />
             </div>
-          </div>
+          </div>          
         </div>
       )}
 
@@ -184,6 +187,7 @@ function EndPage({
                 flipable={true}
                 isFlipped={isFlipped}
               />
+              <p className="card-flip-hint">카드를 클릭해서 뒤집어보세요!</p>
             </div>
           </div>
         </div>

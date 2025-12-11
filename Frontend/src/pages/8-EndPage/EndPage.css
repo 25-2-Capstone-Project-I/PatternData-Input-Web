@@ -69,48 +69,50 @@
   animation: fadeInOut 3s ease-in-out forwards;
   word-wrap: break-word;
   position: absolute;
-  top: 500px;
+  top: 50%;
   left: 0;
   right: 0;
   text-align: center;
   width: 100%;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .message-1 {
   white-space: nowrap;
+  animation-delay: 1s;
 }
 
 .message-2 {
   white-space: normal;
   text-align: center;
-}
-
-.message-1 {
-  animation-delay: 0s;
-}
-
-.message-2 {
-  animation-delay: 3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInOut 4s ease-in-out forwards;
+  animation-delay: 4s;
 }
 
 @keyframes fadeInOut {
   0% {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(calc(-50% + 12px));
   }
   15% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%);
   }
   70% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%);
   }
   100% {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(calc(-50% - 12px));
   }
 }
 
@@ -222,6 +224,28 @@
     opacity: 1;
     transform: translateY(0) rotateY(0deg) scale(1);
   }
+}
+
+/* 카드 플립 안내 텍스트 */
+.card-flip-hint {
+  margin-top: 48px;
+  font-size: 32px;
+  font-weight: 500;
+  color: #413932;
+  text-align: center;
+  font-family: 'Pretendard-Medium', 'Pretendard', Helvetica, sans-serif;
+  opacity: 0.7;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* QR step에서 카드 하단에 텍스트 배치 */
+.memory-card-wrapper--right .card-flip-hint {
+  margin-top: 24px;
+  width: auto;
+  min-width: 450px; /* 카드 너비와 맞춤 */
 }
 
 /* 장면3: 플립 가능한 카드 기본 설정 */
@@ -352,6 +376,9 @@
   top: 304.5px;
   left: 1320px;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 반응형 (전시용 FHD가 기본이지만 최소 모바일 대응) */
